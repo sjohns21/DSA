@@ -1,0 +1,70 @@
+----------------------------------------------------------------------------------
+|        |        |        |        |        |        |        |        |        |
+----------------------------------------------------------------------------------
+  0        1        2        3                                            n
+
+BLOCKSIZE = 64KB
+
+byte[] readBlock(int blockId);
+void writeBlock(int blockId, byte[] data);
+
+==================================================================================
+
+// start = 29000 //29KB
+// end = 129000
+byte[] readFile(int start, int end) {
+  const startId = start / 64000
+  const startBlockLocalOffset = start % 64000
+  const endId = end / 64000
+  const endBlockLocalOffset = end % 64000
+
+  // array of read blocks
+  const blocks = []
+  // loop over from start to end
+  for(let i = startId; i <= endId; i++){
+    blocks.concat(readBlock(i))
+  }
+
+  const endOfBlocks = 64000 * blocks.length - 64000 + endBlockLocalOffset
+  const bytes = blocks.slice(startBlockLocalOffset, endOfBlocks)
+  //for(let i = startBlockLocalOffset; i <= end ; i++){
+  //    bytes.concat(blocks[i])
+  //}
+
+
+  return bytes
+}
+
+
+//start = 29000
+// end = 63000
+byte[] writeFile(int start, int end, byte[] data) {
+  //write in first block
+  const startBlock = Math.floor(start / 64000)
+  const startBlockLocalOffset = start % 64000
+
+  const endBlock = Math.floor(end / 64000)
+  const endBlockLocalOffset = end % 64000
+
+  const dataStartBlockStop = 64000 - startBlockLocalOffset
+
+  const startBlockOld = readBlock(startBlock)
+  const startBlockNew = startBlockOld.slice(0, startBlockLocalOffset).concat(data.slice(0, dataStartBlockStop))
+  writeBlock(startBlock, startBlockNew)
+
+  let currentBlock = startBlock
+  //write in middle blocks
+  let left = dataStartBlockStop
+  let right = left + 64000
+  while(currentBlock < endBlock){
+    writeBlock(currentBlock, data.slice(left, right))
+    currentBlock++
+    left+=64000
+    right+=64000
+
+  }
+  //write in last block
+  const endBlockOld = readBlock(endBlock)
+  const endBlockNew = data.slice(left, endBlockLocalOffset).concat(endBlockOld.slice(endBlockLocalOffset))
+  writeBlock(endBlock, endBlockNew)
+}
