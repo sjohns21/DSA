@@ -1,4 +1,4 @@
-const {binarySearch, stringSearch} = require("./intro")
+const {binarySearch, stringSearch} = require("./searching")
 
 test("binarySearch",()=>{
   const array = [1,2,3,4,5]
