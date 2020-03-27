@@ -18,11 +18,26 @@ function selectionSort(array) {
   for (let i = 0; i < array.length; i++) {
     let min = i
     for (let j = i + 1; j < array.length; j++) {
-      if(array[j] < array[min]) min = j
+      if (array[j] < array[min]) min = j
     }
-    (min !== i)? [array[i], array[min]] = [array[min], array[i]]: null
+    (min !== i) ? [array[i], array[min]] = [array[min], array[i]] : null
   }
   return array
 }
 
-module.exports = {bubbleSort, selectionSort}
+function insertionSort(array) {
+  for (let i = 1; i < array.length; i++) {
+    for (let j = i - 1; j >= -1; j--) {
+      if (j === -1) {
+        array = [array[i]].concat(array.slice(0,i)).concat(array.slice(i+1))
+      }
+      if (array[j] < array[i]) {
+        array = array.slice(0, j + 1).concat([array[i]]).concat(array.slice(j + 1, i)).concat(array.slice(i + 1))
+        break
+      }
+    }
+  }
+  return array
+}
+
+module.exports = {bubbleSort, selectionSort, insertionSort}
