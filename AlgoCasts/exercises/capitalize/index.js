@@ -9,8 +9,9 @@
 
 function capitalize(str) {
   const words = str.split(" ")
-  words.forEach((word, index)=> words[index]=word[0].toUpperCase() + word.slice(1))
-  return words.join(" ")
+  const wordsCaped = []
+  words.forEach((word, index) => wordsCaped[index] = word[0].toUpperCase() + word.slice(1))
+  return wordsCaped.join(" ")
 }
 
-module.exports = capitalize;
+module.exports = capitalize
