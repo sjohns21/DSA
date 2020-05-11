@@ -9,8 +9,8 @@
 //   anagrams('Hi there', 'Bye there') --> False
 
 function anagrams(stringA, stringB) {
-  const cleanA = stringA.replace(/\W/g,"")
-  const cleanB = stringB.replace(/\W/g,"")
+  const cleanA = stringA.replace(/\W/g,"").toLowerCase()
+  const cleanB = stringB.replace(/\W/g,"").toLowerCase()
   if(cleanA.length !== cleanB.length){
     return false
   }
@@ -18,7 +18,7 @@ function anagrams(stringA, stringB) {
   const mapA = makeMap(cleanA)
   const mapB = makeMap(cleanB)
 
-  for(let key in mapA){
+  for(const key in mapA){
     if(mapA[key] !== mapB[key]){
       return false
     }
@@ -30,7 +30,7 @@ function anagrams(stringA, stringB) {
 
 function makeMap(string){
   const d = {}
-  for(let character of string){
+  for(const character of string){
     d[character] = d[character] + 1 || 1
   }
   return d
