@@ -13,14 +13,15 @@
 //   circular(l) // true
 
 function circular(list) {
-  let slow = list.head
-  let fast = list.head.next
-  while(fast.next && fast.next.next){
-    if(slow === fast) return true
-    slow = slow.next
-    fast = fast.next.next
+  const set = new Set()
+  let node = list.head
+  if (!node) return false
+  while (node) {
+    if (set.has(node)) return true
+    set.add(node)
+    node = node.next
   }
   return false
 }
 
-module.exports = circular;
+module.exports = circular

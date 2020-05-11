@@ -10,11 +10,11 @@
 
 function chunk(array, size) {
   const chunks = []
-  for (let i = 0; i< array.length; i+= size){
-    const chunk = array.slice(i, i+size)
+  for (let i = 0; i < array.length; i += size) {
+    const chunk = array.slice(i, i + size)
     chunks.push(chunk)
   }
   return chunks
 }
 
-module.exports = chunk;
+module.exports = chunk
