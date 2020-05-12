@@ -102,8 +102,7 @@ class LinkedList {
     const newNode = new Node(data)
 
     if (index === 0) {
-      const temp = this.head
-      newNode.next = temp
+      newNode.next = this.head
       this.head = newNode
     } else {
       const pre = this.getAt(index - 1)
@@ -111,22 +110,24 @@ class LinkedList {
         const last = this.getLast()
         last.next = newNode
       } else {
-        const dis = this.getAt(index)
+        const dis = pre.next
         pre.next = newNode
         newNode.next = dis
       }
     }
   }
-  forEach(fn){
+
+  forEach(fn) {
     let node = this.head
     while (node) {
       fn(node)
       node = node.next
     }
   }
-  *[Symbol.iterator](){
+
+  * [Symbol.iterator]() {
     let node = this.head
-    while(node){
+    while (node) {
       yield node
       node = node.next
     }
