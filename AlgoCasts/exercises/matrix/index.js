@@ -16,72 +16,52 @@
 //     [10,  9,  8, 7]]
 
 function matrix(n) {
-  //generate rows
-  // const rows = new Array(n).fill(new Array(n).fill(0))
   let rows = []
-  for(let i = 0; i< n; i++){
+  for (let i = 0; i < n; i++) {
     rows.push([])
   }
-  // console.log(rows)
-  let topEdge = -1;
-  let rightEdge = n;
-  let bottomEdge = n;
-  let leftEdge = -1;
-  let direction = "right"
-  let x = 0;
-  let y = 0;
-  for(let i = 0; i < n ** 2; i++){
-    const value = i + 1
-    console.log(x,y)
-    // console.log(value)
-    rows[y][x] = value
+  let iLowerBound = 0
+  let jUpperBound = n - 1
+  let iUpperBound = n - 1
+  let jLowerBound = 0
+  let direction = "jPlus"
+  let i = 0
+  let j = -1
+  for (let k = 0; k < n ** 2; k++) {
+    const value = k + 1
+    console.log('value', value)
 
-    if(direction === "right"){
-      x++
-      if(x===rightEdge){
-        topEdge++
-        // console.log(topEdge)
-        direction = "down"
-        x--
-        y++
+    if (direction === "jPlus") {
+      j++
+      if (j === jUpperBound) {
+        iLowerBound++
+        direction = "iPlus"
       }
-    } else if (direction === "left"){
-      x--
-      if(x===leftEdge){
-        bottomEdge--
-        direction = "up"
-        x++
-        y--
+    } else if (direction === "jMinus") {
+      j--
+      if (j === jLowerBound) {
+        iUpperBound--
+        direction = "iMinus"
       }
-    } else if (direction === "up"){
-      y--
-      if(y===topEdge){
-        leftEdge++
-        direction = "right"
-        y++
-        x++
+    } else if (direction === "iMinus") {
+      i--
+      if (i === iLowerBound) {
+        jLowerBound++
+        direction = "jPlus"
       }
-    }else if (direction === "down"){
-      y++
-      if(y===bottomEdge){
-        rightEdge--
-        direction = "left"
-        y--
-        x--
+    } else if (direction === "iPlus") {
+      i++
+      if (i === iUpperBound) {
+        jUpperBound--
+        direction = "jMinus"
       }
     }
+    // console.log('i', i, 'j', j)
+    rows[i][j] = value
+    // console.log('rows', rows)
   }
-    console.log(rows)
-    return rows
-  // console.log(rows)
-  //fill top edge
-  //fill right edge
-  //fill bottom edge
-  //fill left edge
 
-  //increment topPadding
-  //fill topRow until hitting rightEdge
+  return rows
 }
-matrix(3)
 
-module.exports = matrix;
+module.exports = matrix
