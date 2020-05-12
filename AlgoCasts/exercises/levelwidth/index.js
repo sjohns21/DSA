@@ -13,7 +13,6 @@
 
 function levelWidth(root) {
   const widths = [0]
-  let level = 0
   let q = [root, "break"]
   let node
   while (q.length > 1) {
@@ -21,9 +20,8 @@ function levelWidth(root) {
     if (node === "break") {
       widths.push(0)
       q.push("break")
-      level++
     } else {
-      widths[level]++
+      widths[widths.length - 1]++
       q.push(...node.children)
     }
     // console.log(q, widths)
