@@ -14,14 +14,14 @@
 function fromLast(list, n) {
   let a = list.head
   let b = list.head
-  for(let i=0;i<n;i++){
+  for (let i = 0; i < n; i++) {
     b = b.next
   }
-  while(b.next){
+  while (b.next) {
     a = a.next
     b = b.next
   }
   return a
 }
 
-module.exports = fromLast;
+module.exports = fromLast
