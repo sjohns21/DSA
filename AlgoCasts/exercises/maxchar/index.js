@@ -9,9 +9,9 @@ function maxChar(str) {
   let d = {}
   let max = 0
   let maxChar
-  for(let char of str){
+  for (const char of str) {
     d[char] = d[char] + 1 || 1
-    if(d[char]>max){
+    if (d[char] > max) {
       max = d[char]
       maxChar = char
     }
@@ -19,7 +19,4 @@ function maxChar(str) {
   return maxChar
 }
 
-// maxChar("abcccccccd")
-maxChar("apple 1231111")
-
-module.exports = maxChar;
+module.exports = maxChar
