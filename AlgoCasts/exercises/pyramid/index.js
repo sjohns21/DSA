@@ -10,32 +10,26 @@
 //       ' # '
 //       '###'
 //   pyramid(3)
-//       '  #  ' //i = 0; hash start at 2, stop at 3
-//       ' ### ' //i = 1; hash start at 1, stop at 4
+//       '  #  ' i=0   space (per side) = n - 1 - i   hashes = 2i + 1
+//       ' ### ' 
 //       '#####'
 
 function pyramid(n) {
-  // console.log('k')
-  const width = (n * 2 - 1)
-  // console.log(width)
   for (let i = 0; i < n; i++) {
-    // console.log(i)
-    let string = ""
-    const hashStart = n - i - 1 //blanks on each side //rows from bottom
-    // console.log(hashStart)
-    const hashEnd = hashStart + i * 2 + 1 //blanks on each side //rows from bottom
-    // console.log(hashEnd)
-    // const hashes = (i + 1) * 2
-    for (let j = 0; j < width; j++) {
-      if (j < hashStart) string += " "
-      else if (j < hashEnd) string += "#"
-      else string += " "
+    const spaces = n - 1 - i
+    let spacesString = ""
+    for (let j = 0; j < spaces; j++) {
+      spacesString += " "
     }
-    console.log(string)
+
+    const hashes = 2 * i + 1
+    let hashesString = ""
+    for (let j = 0; j < hashes; j++) {
+      hashesString += "#"
+    }
+
+    console.log(spacesString + hashesString + spacesString)
   }
 }
-
-// console.log('k')
-pyramid(3)
 
 module.exports = pyramid
